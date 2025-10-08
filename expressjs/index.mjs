@@ -105,3 +105,24 @@ app.put("/Update/:id", (req, res)=>{
     res.status(500).json({message: error.message})
   }
 })
+
+app.patch("/updatespecific/:id", (req, res) => {
+try{
+  let id = req.params.id;
+  let updateobject = req.body;
+  let product = products.find((prd)=> prd.id == id);
+  if(!product){
+   return res.status(404).json({message:"Product not found"});
+  }
+  let updates= Object.assign(product, updateobject);
+if(updates){
+  res.status(200).json({message:"product element updated successfully", product:updates});
+}else{
+  res.status(500).json({message:"Update product was unsuccessful"});
+}
+}
+catch (error){
+  console.log(error);
+  res.status(500).json({message:error.message})
+}
+})

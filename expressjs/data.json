@@ -11803,7 +11803,19 @@
         "https://cdn.dummyjson.com/product-images/womens-watches/women's-wrist-watch/3.webp"
       ],
       "thumbnail": "https://cdn.dummyjson.com/product-images/womens-watches/women's-wrist-watch/thumbnail.webp"
+    },
+    {
+      "title": "Laptop",
+      "description": "High-performance laptop",
+      "price": 1200,
+      "discountPercentage": 10,
+      "rating": 4.5,
+      "stock": 50,
+      "brand": "Dell",
+      "category": "electronics",
+      "thumbnail": "laptop.jpg",
+      "images": "laptop1.jpg",
+      "id": 195
     }
   ]
-  
 }

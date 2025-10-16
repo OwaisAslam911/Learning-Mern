@@ -1,7 +1,8 @@
 import express from 'express';
 import fs from 'node:fs';
 import ProductRouter from './Routes/Routes.mjs';
-
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 
 const data = JSON.parse(fs.readFileSync("data.json", "utf-8"));
@@ -10,6 +11,16 @@ let products = data.products;
 const app = express();
 const PORT = 3000;
 app.use(express.json());
+dotenv.config();
+main().catch(err => console.log(err));
+
+async function main() {
+  await mongoose.connect('mongodb+srv://owaisaslams911_db_user:XPJ9YuJqmErvL$u@products.iccdcf.mongodb.net/?retryWrites=true&w=majority&appName=Products');
+
+  console.log("Database connected successfully")
+  // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled
+}
+
 // main().catch(err => console.log(err));
 // async function main() {
 //   // Connect to the database
@@ -44,7 +55,7 @@ app.use(express.json());
 
 
 // app.post("/create", (req, res) => {
-//   try {
+//   try { 
 //     let newProduct = req.body;
 //     let addproduct = products.push(newProduct);
 //     console.log(addproduct);

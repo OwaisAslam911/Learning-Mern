@@ -12,10 +12,10 @@ const app = express();
 const PORT = 3000;
 app.use(express.json());
 dotenv.config();
+const mongodbConnection = process.env.ConnectionString
 main().catch(err => console.log(err));
-
 async function main() {
-  await mongoose.connect('mongodb+srv://owaisaslams911_db_user:XPJ9YuJqmErvL$u@products.iccdcf.mongodb.net/?retryWrites=true&w=majority&appName=Products');
+  await mongoose.connect(mongodbConnection);
 
   console.log("Database connected successfully")
   // use `await mongoose.connect('mongodb://user:password@127.0.0.1:27017/test');` if your database has auth enabled

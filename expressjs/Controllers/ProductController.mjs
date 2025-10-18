@@ -1,44 +1,86 @@
-import fs from 'node:fs';
-import Product from '../Models/ProductModel.mjs';
+import fs from "node:fs";
+import Product from "../Models/ProductModel.mjs";
 
-
-let index = async (req, res)=>{
-    try{
-        const products = await Product.getAll();
-        if(products.length >0){
-            res.status(200).json({message:"Showing products", products})
-        }else{
-            res.status(404).json({message: "Product not found"})
-        }
-
-    }
-    catch (error){
-        console.log(error);
-        res.status(500).json({message: error.message})
-
-    }
-}
-
-let CreateProduct = async (req, res) =>{
-    try{
- let newProduct = req.body;
-    // let addproduct = Product.push(newProduct);
-    const result = Product.create(newProduct)
-    console.log(result);
-    if (result.success) {
-      res.status(200).json({ message: "Product added successfully", Product: newProduct })
+let index = async (req, res) => {
+  try {
+    const products = await Product.getAll();
+    if (products.length > 0) {
+      res.status(200).json({ message: "Showing products", products });
     } else {
-      res.status(500).json({ message: "Something Went Wrong Product not added"})
+      res.status(404).json({ message: "Product not found" });
     }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// let CreateProduct = async (req, res) =>{
+//     try{
+//  let newProduct = req.body;
+//     // let addproduct = Product.push(newProduct);
+//     const result = Product.create(newProduct)
+//     console.log(result);
+//     if (result.success) {
+//       res.status(200).json({ message: "Product added successfully", Product: newProduct })
+//     } else {
+//       res.status(500).json({ message: "Something Went Wrong Product not added"})
+//     }
+//     }
+//     catch (error){
+//         console.log(error);
+//         res.status(500).json({message:error.message})
+//     }
+// }
+let CreateProduct = async (req, res) => {
+  try {
+const {
+    title,
+    description,
+    price,
+    discountPercentage,
+    rating,
+    stock,
+    brand,
+    category,
+    thumbnail,
+    images
+}= req.body;
+
+const product = new Product({
+      title,
+      description,
+      price,
+      discountPercentage,
+      rating,
+      stock,
+      brand,
+      category,
+      thumbnail,
+      images 
+});
+
+const addProd = await product.save();
+    // mongodb method to save data to database
+    // let addProd = await Product.insertOne(product);
+
+    res.status(201).json({
+      message: "Product created successfully",
+      product: addProd
+    });
+   
+  } catch (error) {
+    console.log(error);
+     if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
     }
-    catch (error){
-        console.log(error);
-        res.status(500).json({message:error.message})
-    }
-}
+
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const ProductController = {
-    index,
-    CreateProduct
-}
+  index,
+  CreateProduct,
+};
 export default ProductController;

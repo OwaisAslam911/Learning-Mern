@@ -7,5 +7,6 @@ ProductRouter
 .get("/:id",ProductController.findProduct)
 .post("/create", ProductController.CreateProduct)
 .delete("/delete/:id", ProductController.deleteProduct)
+.patch("/update/:id", ProductController.updateProduct)
 
 export default ProductRouter;

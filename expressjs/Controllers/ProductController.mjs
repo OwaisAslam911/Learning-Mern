@@ -47,7 +47,32 @@ let deleteProduct = async (req, res) =>{
     res.status(500).json({message:error.message})
   }
 }
+let updateProduct = async (req, res) =>{
+  try{
+    let id = req.params.id;
+    const update = req.body;
+    const updatedProduct = await Product.findByIdAndUpdate(id, {$set: update}, {new: true});
+    // if(updateProduct){
+    //   res.status(200).json({message: "Product Updated Successfully", product:updateProduct});
+    // }else{
+    //   res.status(404).json({message: "Product Not found with id "+ id})
+    // }
+    if (!updatedProduct) {
+      return res.status(404).json({
+        message: "No product found with this ID"
+      });
+    }
 
+    res.status(200).json({
+      message: "Product Updated Successfully",
+      product: updatedProduct
+    });
+  }
+  catch (error){
+    console.log(error),
+    res.status(500).json({message: error.message})
+  }
+}
 // {static work crud through data.json file}
 // let index = async (req, res) => {
 //   try {
@@ -131,6 +156,7 @@ const ProductController = {
   index,
   CreateProduct,
   findProduct,
-  deleteProduct
+  deleteProduct,
+  updateProduct
 };
 export default ProductController;

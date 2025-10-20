@@ -3,3 +3,4 @@ expressjs/node_modules/
 *.log
 .env
 expressjs/.env
+ReactJs/Full_Stack_Crud_App/node_modules/

@@ -1,6 +1,19 @@
+# Ignore node modules everywhere
 node_modules/
-expressjs/node_modules/
-*.log
+**/node_modules/
+
+# Ignore environment files
 .env
-expressjs/.env
-ReactJs/Full_Stack_Crud_App/node_modules/
+**/.env
+
+# Ignore logs
+*.log
+
+# Ignore build/dist folders
+dist/
+build/
+
+# Ignore IDE/editor files
+.vscode/
+.DS_Store
+Thumbs.db
